@@ -1,5 +1,8 @@
-# Демо-версия на GitHub Pages — закрыта от поисковиков,
-# чтобы не дублировать основной сайт fairy-speech.ru.
-# При переносе на боевой домен этот файл удалить.
 User-agent: *
-Disallow: /
+Allow: /
+
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&_openstat
+
+Sitemap: https://logoped-spb.ru/sitemap.xml
