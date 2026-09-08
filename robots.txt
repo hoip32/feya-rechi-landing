@@ -5,4 +5,4 @@ User-agent: Yandex
 Allow: /
 Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&_openstat
 
-Sitemap: https://logoped-spb.ru/sitemap.xml
+Sitemap: http://logoped-spb.ru/sitemap.xml

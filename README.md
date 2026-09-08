@@ -91,6 +91,10 @@ fetch('/send.php', { method: 'POST', body: new FormData(form) })
 Домен — **logoped-spb.ru**. На нём завязаны `canonical`, Open Graph, `sitemap.xml`,
 `robots.txt` и микроразметка. При смене домена их нужно поправить все разом.
 
+> **Сейчас везде `http://`, потому что SSL на домене не выпущен.** Как только
+> сертификат появится, замените `http://logoped-spb.ru` на `https://logoped-spb.ru`
+> во всех файлах — 65 вхождений, одна автозамена по проекту.
+
 - **Мета:** title 50 симв., description 158 симв., canonical, `max-image-preview:large`
   (без него поисковики и AI-выжимки не показывают крупную картинку).
 - **Соцсети:** Open Graph и Twitter Card, превью `assets/img/og-image.jpg` 1200×630.
