@@ -5,6 +5,16 @@
 # Наш index.html должен идти раньше заглушки хостинга index.htm.
 DirectoryIndex index.html index.htm index.php
 
+# ---------- Один адрес вместо двух ----------
+# Сайт открывался и на logoped-spb.ru, и на www.logoped-spb.ru с кодом 200.
+# Для поисковика это два разных сайта с одинаковым содержимым; склеиваем
+# постоянным редиректом на адрес без www — тот же, что в canonical.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+</IfModule>
+
 # Кириллица в текстовых файлах без явной кодировки
 AddDefaultCharset UTF-8
 
