@@ -1,0 +1,58 @@
+# ============================================================
+#  Логопедический центр «Фея Речи» — настройки Apache
+# ============================================================
+
+# Наш index.html должен идти раньше заглушки хостинга index.htm.
+DirectoryIndex index.html index.htm index.php
+
+# Кириллица в текстовых файлах без явной кодировки
+AddDefaultCharset UTF-8
+
+# ---------- Сжатие ----------
+# Экономит примерно втрое на HTML, CSS и JS. Картинки и шрифты
+# уже сжаты своими форматами — их не трогаем.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/xml application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ---------- Кэширование ----------
+# Картинки и шрифты не меняются — держим год. HTML не кэшируем:
+# иначе правки текста доходили бы до посетителей с задержкой.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 1 month"
+  ExpiresByType application/javascript  "access plus 1 month"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Не отдаём сайт во фрейм чужого домена
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ---------- Типы файлов ----------
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+
+# ---------- Служебные файлы наружу не отдаём ----------
+<FilesMatch "^\.(git|htaccess|gitignore|gitattributes)">
+  Require all denied
+</FilesMatch>
