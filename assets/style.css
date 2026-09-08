@@ -134,8 +134,10 @@ p:last-child{margin-bottom:0}
 }
 .header__bar{display:flex;align-items:center;gap:clamp(12px,1.5vw,24px);min-height:84px;padding-block:8px}
 .header__logo{flex:0 0 auto;display:block}
-.header__logo img{width:clamp(58px,5vw,72px);transition:width .3s var(--ease)}
-.header.is-stuck .header__logo img{width:clamp(50px,4.2vw,60px)}
+/* Уменьшаем логотип трансформацией, а не шириной: анимация width заставляла
+   браузер пересчитывать раскладку на каждом кадре прокрутки. */
+.header__logo img{width:clamp(58px,5vw,72px);transform-origin:left center;transition:transform .3s var(--ease)}
+.header.is-stuck .header__logo img{transform:scale(.84)}
 
 /* Навигация живёт одной капсулой, а не семью разбросанными ссылками */
 .nav{
@@ -486,7 +488,7 @@ p:last-child{margin-bottom:0}
 .footer__col h4{
   font-family:Montserrat,sans-serif;font-weight:600;font-size:12.5px;
   letter-spacing:.07em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);margin:0 0 18px;
+  color:rgba(255,255,255,.56);margin:0 0 18px;  /* .45 давало 4.41:1 при норме 4.5 */
 }
 .footer__list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .footer__list li{line-height:1.45}
